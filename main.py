@@ -9,6 +9,7 @@ def main():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     time = pygame.time.Clock()
     dt = .01
+    player_group = pygame.sprite.Group()
     player = Player(SCREEN_WIDTH, SCREEN_HEIGHT)
     print("Starting Asteroids!")
     print(f"Screen width: {SCREEN_WIDTH}")

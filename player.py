@@ -17,6 +17,7 @@ class Player:
     def triangle(self):
         self.update_direction()
         right = pygame.Vector2(0, 1).rotate(self.rotation + 90) * self.radius / 1.5
+        # Tip / Back Left / Back Right
         a = self.position + self.forward * self.radius
         b = self.position - self.forward * self.radius - right
         c = self.position - self.forward * self.radius + right
