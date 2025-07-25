@@ -2,7 +2,7 @@ import pygame
 from constants import *
 from player import *
 from asteroid import *
-
+from asteroidfield import *
 
 def main():
     pygame.init()
@@ -17,9 +17,9 @@ def main():
 
     Player.containers = (updatables, drawables)
     Asteroid.containers = (updatables, drawables)
-    
+    AsteroidField.containers = (updatables)
     player = Player(SCREEN_WIDTH, SCREEN_HEIGHT)
-    asteroid = Asteroid(SCREEN_WIDTH, SCREEN_HEIGHT, ASTEROID_MAX_RADIUS)
+    asteroidfield = AsteroidField()
 
 
 
