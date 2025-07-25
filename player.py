@@ -3,11 +3,11 @@ from constants import *
 from circleshape import CircleShape
 class Player(CircleShape):
     
-    rotation = 0
 
     def __init__(self, SCREEN_WIDTH, SCREEN_HEIGHT):
         super().__init__(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2, PLAYER_RADIUS)
         self.color = (255, 255, 255)
+        self.rotation = 0
         self.thrusting = False
 
     def update_direction(self):
@@ -37,6 +37,7 @@ class Player(CircleShape):
             self.thrusting = True
         else:
             self.thrusting = False
+        
         self.move(dt)
 
     def move(self, dt):
@@ -47,3 +48,6 @@ class Player(CircleShape):
 
         damping = .98
         self.velocity *= damping
+
+        self.position.x = max(self.radius, min(self.position.x, SCREEN_WIDTH - self.radius))
+        self.position.y = max(self.radius, min(self.position.y, SCREEN_HEIGHT - self.radius))
