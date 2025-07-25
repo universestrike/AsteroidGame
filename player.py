@@ -5,6 +5,7 @@ class Player(pygame.sprite.Sprite):
     rotation = 0
 
     def __init__(self, SCREEN_WIDTH, SCREEN_HEIGHT):
+        super().__init__()
         self.position = pygame.Vector2(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
         self.radius = PLAYER_RADIUS
         self.color = (255, 255, 255)
@@ -38,9 +39,13 @@ class Player(pygame.sprite.Sprite):
             self.thrusting = True
         else:
             self.thrusting = False
+        self.move(dt)
 
     def move(self, dt):
         self.update_direction()
         if self.thrusting:
             self.velocity += self.forward * PLAYER_SPEED * dt
         self.position += self.velocity * dt
+
+        damping = .98
+        self.velocity *= damping
