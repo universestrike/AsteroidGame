@@ -1,15 +1,13 @@
 import pygame
 from constants import *
-class Player(pygame.sprite.Sprite):
+from circleshape import CircleShape
+class Player(CircleShape):
     
     rotation = 0
 
     def __init__(self, SCREEN_WIDTH, SCREEN_HEIGHT):
-        super().__init__()
-        self.position = pygame.Vector2(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
-        self.radius = PLAYER_RADIUS
+        super().__init__(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2, PLAYER_RADIUS)
         self.color = (255, 255, 255)
-        self.velocity = pygame.Vector2(0,0)
         self.thrusting = False
 
     def update_direction(self):
