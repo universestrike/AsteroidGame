@@ -1,6 +1,6 @@
 import pygame
 from constants import *
-class Player:
+class Player(pygame.sprite.Sprite):
     
     rotation = 0
 
