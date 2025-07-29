@@ -11,48 +11,56 @@ def main():
     pygame.display.set_caption("Asteroids")
     
     clock = pygame.time.Clock()
-    
+    pygame.font.init()
+    font = pygame.font.SysFont(None, 72)
+
     updatables = pygame.sprite.Group()
     drawables = pygame.sprite.Group()
 
     Player.containers = (updatables, drawables)
     Asteroid.containers = (updatables, drawables)
-    AsteroidField.containers = (updatables)
+    AsteroidField.containers = (updatables,)
+    
     player = Player(SCREEN_WIDTH, SCREEN_HEIGHT)
     asteroidfield = AsteroidField()
 
-
-
-
-    print("Starting Asteroids!")
-    print(f"Screen width: {SCREEN_WIDTH}")
-    print(f"Screen height: {SCREEN_HEIGHT}")
+    hit_time = None
 
     game = True
     while game:
-        dt = clock.tick(60)/1000
+        dt = clock.tick(60) / 1000
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                return
+                game = False
 
-        updatables.update(dt)
+        # Only update game objects if player hasn't been hit
+        if hit_time is None:
+            updatables.update(dt)
 
-        for sprite in updatables:
-            if isinstance(sprite, Asteroid):
-                if player.collision(sprite):
+            # Collision check
+            for sprite in updatables:
+                if isinstance(sprite, Asteroid) and player.collision(sprite):
                     print("Player hit!")
-                    print("Game Over")
-                    pygame.quit()
-        
-        # Clear screen
-        screen.fill((0,0,0))
+                    hit_time = pygame.time.get_ticks()
 
+        # Draw everything
+        screen.fill((0, 0, 0))
         for sprite in drawables:
             sprite.draw(screen)
-        
+
+        # If player hit, draw Game Over message
+        if hit_time is not None:
+            text_surface = font.render("Game Over", True, (255, 0, 0))
+            text_rect = text_surface.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
+            screen.blit(text_surface, text_rect)
+
+            # After 5 seconds, quit the game
+            if pygame.time.get_ticks() - hit_time >= 5000:
+                game = False
+
         pygame.display.flip()
-        
+
     pygame.quit()
 
 if __name__ == "__main__":
