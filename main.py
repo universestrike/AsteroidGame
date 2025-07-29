@@ -35,9 +35,16 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
-        
+
         updatables.update(dt)
 
+        for sprite in updatables:
+            if isinstance(sprite, Asteroid):
+                if player.collision(sprite):
+                    print("Player hit!")
+                    print("Game Over")
+                    pygame.quit()
+        
         # Clear screen
         screen.fill((0,0,0))
 
