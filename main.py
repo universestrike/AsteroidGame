@@ -38,7 +38,7 @@ def main():
 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_SPACE]:
-            Player.shoot()
+            player.shoot()
 
         # Only update game objects if player hasn't been hit
         if hit_time is None:
