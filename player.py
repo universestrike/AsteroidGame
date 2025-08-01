@@ -1,6 +1,7 @@
 import pygame
 from constants import *
 from circleshape import CircleShape
+from shot import *
 class Player(CircleShape):
     
 
@@ -29,6 +30,7 @@ class Player(CircleShape):
         self.update_direction()
         keys = pygame.key.get_pressed()
 
+        #movement
         if keys[pygame.K_a]:
             self.rotation -= PLAYER_TURN_SPEED * dt
         if keys[pygame.K_d]:
@@ -51,3 +53,6 @@ class Player(CircleShape):
 
         self.position.x = max(self.radius, min(self.position.x, SCREEN_WIDTH - self.radius))
         self.position.y = max(self.radius, min(self.position.y, SCREEN_HEIGHT - self.radius))
+
+    def shoot(self):
+        Shot(self.position + self.forward * self.radius, self.forward)
