@@ -27,7 +27,7 @@ def main():
     asteroidfield = AsteroidField()
 
     hit_time = None
-
+    hit_score = 0
     game = True
     while game:
         dt = clock.tick(60) / 1000
@@ -53,10 +53,10 @@ def main():
                     for target in updatables:
                         if isinstance(target, Asteroid):
                             if sprite.collision(target):
-                                print("Asteroid hit!")
+                                hit_score += 1
+                                print(f"Asteroid hit! Score:", hit_score)
                                 sprite.kill()
                                 target.kill()
-                                hit_score += 1
                                 break
 
         # Draw everything
