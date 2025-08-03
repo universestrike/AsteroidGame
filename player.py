@@ -10,6 +10,7 @@ class Player(CircleShape):
         self.color = (255, 255, 255)
         self.rotation = 0
         self.thrusting = False
+        self.shotcd = 0
 
     def update_direction(self):
         self.forward = pygame.Vector2(0, -1).rotate(self.rotation)
@@ -40,6 +41,10 @@ class Player(CircleShape):
         else:
             self.thrusting = False
         
+        #shot timer
+        if self.shotcd > 0:
+            self.shotcd-= dt
+        
         self.move(dt)
 
     def move(self, dt):
@@ -55,4 +60,7 @@ class Player(CircleShape):
         self.position.y = max(self.radius, min(self.position.y, SCREEN_HEIGHT - self.radius))
 
     def shoot(self):
-        Shot(self.position + self.forward * self.radius, self.forward)
+        if self.shotcd <= 0:
+            Shot(self.position + self.forward * self.radius, self.forward)
+            self.shotcd = PLAYER_SHOOT_COOLDOWN
+        
