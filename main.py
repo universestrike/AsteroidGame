@@ -49,6 +49,15 @@ def main():
                 if isinstance(sprite, Asteroid) and player.collision(sprite):
                     print("Player hit!")
                     hit_time = pygame.time.get_ticks()
+                if isinstance(sprite, Shot):
+                    for target in updatables:
+                        if isinstance(target, Asteroid):
+                            if sprite.collision(target):
+                                print("Asteroid hit!")
+                                sprite.kill()
+                                target.kill()
+                                hit_score += 1
+                                break
 
         # Draw everything
         screen.fill((0, 0, 0))
