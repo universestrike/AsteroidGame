@@ -29,5 +29,3 @@ class Asteroid(CircleShape):
             for angle_offset in [random.randint(20,50), -random.randint(20,50)]:
                 new_velocity = self.velocity.rotate(angle_offset)
                 Asteroid(self.position.x, self.position.y, new_radius).velocity = new_velocity
-        else:
-            self.kill()
