@@ -1,4 +1,6 @@
 import pygame
+import random
+import math
 from constants import *
 from circleshape import CircleShape
 
@@ -20,3 +22,12 @@ class Asteroid(CircleShape):
         # Move in a straight line at constant speed
         self.position += self.velocity * dt
     
+    def split(self):
+        if self.radius > ASTEROID_MIN_RADIUS:
+            new_radius = self.radius // 2
+            print("Splitting Hit Asteroid into 2 halves.")
+            for angle_offset in [random.randint(20,50), -random.randint(20,50)]:
+                new_velocity = self.velocity.rotate(angle_offset)
+                Asteroid(self.position.x, self.position.y, new_radius).velocity = new_velocity
+        else:
+            self.kill()

@@ -56,6 +56,7 @@ def main():
                                 hit_score += 1
                                 print(f"Asteroid hit! Score:", hit_score)
                                 sprite.kill()
+                                target.split()
                                 target.kill()
                                 break
 
